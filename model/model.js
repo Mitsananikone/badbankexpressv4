@@ -13,6 +13,10 @@ const dataSchema = new mongoose.Schema({
   password: {
     required: true,
     type: String
+  },
+  balance: {
+    required: true,
+    type: Number,
   }
 });
 

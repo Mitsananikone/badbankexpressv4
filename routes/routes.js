@@ -4,9 +4,9 @@ const dal = require('../dal.js');
 const User = require('../model/model');
 
 // Post Method - Create user account
-router.post('/account', async (req, res) => {
+router.post('/account/create/:name/:email/:password', async (req, res) => {
   try {
-    const user = await dal.create(req.body.name, req.body.email, req.body.password, User);
+    const user = await dal.create(req.params.name, req.params.email, req.params.password, User);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -34,6 +34,17 @@ router.get('/account/login/:email/:password', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// Update user account balance
+router.post('/account/update/:email/:amount', async (req, res) => {
+  try {
+    const { email, amount } = req.params;
+    const updatedUser = await dal.update(email, amount, User);
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 });
 
